@@ -10,14 +10,14 @@ function TestManager() {
     const [editingTest, setEditingTest] = useState(null); // Estado para editar un caso de prueba
 
     useEffect(() => {
-        axios.get('http://localhost:5000/api/projects')
+        axios.get('http://64.23.251.147:5000/api/projects')
             .then(response => setProjects(response.data))
             .catch(error => console.error('Error al obtener proyectos:', error));
     }, []);
 
     useEffect(() => {
         if (selectedProject) {
-            axios.get(`http://localhost:5000/api/tests/${selectedProject}`)
+            axios.get(`http://64.23.251.147:5000/api/tests/${selectedProject}`)
                 .then(response => setTests(response.data))
                 .catch(error => console.error('Error al obtener casos de prueba:', error));
         } else {
@@ -34,7 +34,7 @@ function TestManager() {
         }
 
         if (editingTest) {
-            axios.put(`http://localhost:5000/api/tests/${editingTest.id}`, newTest)
+            axios.put(`http://64.23.251.147:5000/api/tests/${editingTest.id}`, newTest)
                 .then(response => {
                     setTests(tests.map(test => (test.id === editingTest.id ? response.data : test)));
                     setEditingTest(null);
@@ -42,7 +42,7 @@ function TestManager() {
                 })
                 .catch(error => console.error('Error al editar caso de prueba:', error));
         } else {
-            axios.post('http://localhost:5000/api/tests', { ...newTest, proyecto_id: selectedProject })
+            axios.post('http://64.23.251.147:5000/api/tests', { ...newTest, proyecto_id: selectedProject })
                 .then(response => {
                     setTests([...tests, response.data]);
                     setNewTest({ titulo: '', descripcion: '', estado: 'Pendiente' });
@@ -52,13 +52,13 @@ function TestManager() {
     };
 
     const handleDelete = (id) => {
-        axios.delete(`http://localhost:5000/api/tests/${id}`)
+        axios.delete(`http://64.23.251.147:5000/api/tests/${id}`)
             .then(() => setTests(tests.filter(test => test.id !== id)))
             .catch(error => console.error('Error al eliminar caso de prueba:', error));
     };
 
     const handleChangeEstado = (id, estado) => {
-        axios.put(`http://localhost:5000/api/tests/${id}/estado`, { estado })
+        axios.put(`http://64.23.251.147:5000/api/tests/${id}/estado`, { estado })
             .then(response => {
                 setTests(tests.map(test => (test.id === id ? response.data : test)));
             })

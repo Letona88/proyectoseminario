@@ -10,12 +10,12 @@ function ProjectManager() {
     const [assignedUsers, setAssignedUsers] = useState({}); // Usuarios asignados por proyecto
 
     useEffect(() => {
-        axios.get('http://localhost:5000/api/projects')
+        axios.get('http://64.23.251.147:5000/api/projects')
             .then(response => {
                 setProjects(response.data);
 
                 const fetchAllAssignedUsers = response.data.map(project =>
-                    axios.get(`http://localhost:5000/api/assignments/${project.id}`)
+                    axios.get(`http://64.23.251.147:5000/api/assignments/${project.id}`)
                         .then(userResponse => ({
                             projectId: project.id,
                             users: userResponse.data,
@@ -34,7 +34,7 @@ function ProjectManager() {
             })
             .catch(error => console.error('Error al obtener proyectos:', error));
 
-        axios.get('http://localhost:5000/api/users')
+        axios.get('http://64.23.251.147:5000/api/users')
             .then(response => setUsers(response.data))
             .catch(error => console.error('Error al obtener usuarios:', error));
     }, []);
@@ -48,7 +48,7 @@ function ProjectManager() {
         }
 
         if (editingProject) {
-            axios.put(`http://localhost:5000/api/projects/${editingProject.id}`, newProject)
+            axios.put(`http://64.23.251.147:5000/api/projects/${editingProject.id}`, newProject)
                 .then((response) => {
                     setProjects(response.data);
                     setEditingProject(null);
@@ -56,7 +56,7 @@ function ProjectManager() {
                 })
                 .catch(error => console.error('Error al editar proyecto:', error));
         } else {
-            axios.post('http://localhost:5000/api/projects', newProject)
+            axios.post('http://64.23.251.147:5000/api/projects', newProject)
                 .then(response => {
                     setProjects([...projects, response.data]);
                     setNewProject({ nombre: '', descripcion: '', fecha_entrega: '' });
@@ -71,7 +71,7 @@ function ProjectManager() {
     };
 
     const handleDelete = (id) => {
-        axios.delete(`http://localhost:5000/api/projects/${id}`)
+        axios.delete(`http://64.23.251.147:5000/api/projects/${id}`)
             .then((response) => {
                 setProjects(response.data);
             })
@@ -79,7 +79,7 @@ function ProjectManager() {
     };
 
     const handleAssignUser = (projectId, userId) => {
-        axios.post('http://localhost:5000/api/assignments', { proyecto_id: projectId, usuario_id: userId })
+        axios.post('http://64.23.251.147:5000/api/assignments', { proyecto_id: projectId, usuario_id: userId })
             .then(() => {
                 fetchAssignedUsers(projectId);
             })
@@ -87,19 +87,19 @@ function ProjectManager() {
     };
 
     const fetchAssignedUsers = (projectId) => {
-        axios.get(`http://localhost:5000/api/assignments/${projectId}`)
+        axios.get(`http://64.23.251.147:5000/api/assignments/${projectId}`)
             .then(response => setAssignedUsers(prev => ({ ...prev, [projectId]: response.data })))
             .catch(error => console.error('Error al obtener usuarios asignados:', error));
     };
 
     const handleRemoveUser = (projectId, userId) => {
-        axios.delete(`http://localhost:5000/api/assignments/${projectId}/${userId}`)
+        axios.delete(`http://64.23.251.147:5000/api/assignments/${projectId}/${userId}`)
             .then(() => fetchAssignedUsers(projectId))
             .catch(error => console.error('Error al eliminar usuario:', error));
     };
 
     const handleChangeEstado = (id, estado) => {
-        axios.put(`http://localhost:5000/api/projects/${id}/estado`, { estado })
+        axios.put(`http://64.23.251.147:5000/api/projects/${id}/estado`, { estado })
             .then((response) => {
                 setProjects(response.data); // Actualizar los proyectos en el estado
             })

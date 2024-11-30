@@ -32,12 +32,12 @@ function DefectsManager() {
 
     useEffect(() => {
         // Obtener proyectos activos
-        axios.get('http://localhost:5000/api/projects')
+        axios.get('http://64.23.251.147:5000/api/projects')
             .then(response => setProjects(response.data.filter(project => project.estado === 'Activo')))
             .catch(error => console.error('Error al obtener proyectos:', error));
 
         // Obtener usuarios
-        axios.get('http://localhost:5000/api/users')
+        axios.get('http://64.23.251.147:5000/api/users')
             .then(response => setUsers(response.data))
             .catch(error => console.error('Error al obtener usuarios:', error));
     }, []);
@@ -46,12 +46,12 @@ function DefectsManager() {
     useEffect(() => {
         if (selectedProject) {
             // Obtener defectos
-            axios.get(`http://localhost:5000/api/defects/${selectedProject}`)
+            axios.get(`http://64.23.251.147:5000/api/defects/${selectedProject}`)
                 .then(response => setDefects(response.data))
                 .catch(error => console.error('Error al obtener defectos:', error));
 
             // Obtener casos de prueba del proyecto
-            axios.get(`http://localhost:5000/api/tests/proyecto/${selectedProject}`)
+            axios.get(`http://64.23.251.147:5000/api/tests/proyecto/${selectedProject}`)
                 .then(response => setTestCases(response.data))
                 .catch(error => console.error('Error al obtener casos de prueba:', error));
         } else {
@@ -70,7 +70,7 @@ function DefectsManager() {
     
         if (editingDefect) {
             // Editar defecto
-            axios.put(`http://localhost:5000/api/defects/${editingDefect.id}`, newDefect)
+            axios.put(`http://64.23.251.147:5000/api/defects/${editingDefect.id}`, newDefect)
                 .then(response => {
                     setDefects(defects.map(def => (def.id === editingDefect.id ? response.data : def)));
                     setEditingDefect(null);
@@ -79,7 +79,7 @@ function DefectsManager() {
                 .catch(error => console.error('Error al editar defecto:', error));
         } else {
             // Crear nuevo defecto
-            axios.post('http://localhost:5000/api/defects', { ...newDefect, proyecto_id: selectedProject })
+            axios.post('http://64.23.251.147:5000/api/defects', { ...newDefect, proyecto_id: selectedProject })
                 .then(response => {
                     setDefects([...defects, response.data]);
                     setNewDefect({ caso_prueba_id: '', titulo: '', descripcion: '', estado: 'Abierto', prioridad: 'Media', asignado_a: '' });
@@ -89,7 +89,7 @@ function DefectsManager() {
     };
     
     const handleDelete = (id) => {
-        axios.delete(`http://localhost:5000/api/defects/${id}`)
+        axios.delete(`http://64.23.251.147:5000/api/defects/${id}`)
             .then(() => setDefects(defects.filter(def => def.id !== id)))
             .catch(error => console.error('Error al eliminar defecto:', error));
     };

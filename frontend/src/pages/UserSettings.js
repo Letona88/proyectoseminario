@@ -9,7 +9,7 @@ function UserManager() {
 
     // Cargar usuarios al inicio
     useEffect(() => {
-        axios.get('http://localhost:5000/api/users')
+        axios.get('http://64.23.251.147:5000/api/users')
             .then(response => setUsers(response.data))
             .catch(error => console.error('Error al obtener usuarios:', error));
     }, []);
@@ -24,7 +24,7 @@ function UserManager() {
         }
 
         if (editingUser) {
-            axios.put(`http://localhost:5000/api/users/${editingUser.id}`, newUser)
+            axios.put(`http://64.23.251.147:5000/api/users/${editingUser.id}`, newUser)
                 .then(response => {
                     setUsers(users.map(user => (user.id === editingUser.id ? response.data : user)));
                     setEditingUser(null);
@@ -32,7 +32,7 @@ function UserManager() {
                 })
                 .catch(error => console.error('Error al editar usuario:', error));
         } else {
-            axios.post('http://localhost:5000/api/users', newUser)
+            axios.post('http://64.23.251.147:5000/api/users', newUser)
                 .then(response => {
                     setUsers([...users, response.data]);
                     setNewUser({ nombre: '', email: '', contraseña: '', rol: 'Tester' });
@@ -43,7 +43,7 @@ function UserManager() {
 
     // Eliminar usuario
     const handleDelete = (id) => {
-        axios.delete(`http://localhost:5000/api/users/${id}`)
+        axios.delete(`http://64.23.251.147:5000/api/users/${id}`)
             .then(() => setUsers(users.filter(user => user.id !== id)))
             .catch(error => console.error('Error al eliminar usuario:', error));
     };

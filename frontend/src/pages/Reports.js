@@ -11,13 +11,13 @@ function Reports() {
     const [assignedUsers, setAssignedUsers] = useState({}); // Usuarios asignados por proyecto
 
     useEffect(() => {
-        axios.get('http://localhost:5000/api/projects')
+        axios.get('http://64.23.251.147:5000/api/projects')
             .then(response => {
                 setProjects(response.data);
 
                 // Cargar usuarios asignados para cada proyecto
                 const fetchAllAssignedUsers = response.data.map(project =>
-                    axios.get(`http://localhost:5000/api/assignments/${project.id}`)
+                    axios.get(`http://64.23.251.147:5000/api/assignments/${project.id}`)
                         .then(userResponse => ({
                             projectId: project.id,
                             users: userResponse.data,
@@ -36,7 +36,7 @@ function Reports() {
 
                 // Cargar casos de prueba para cada proyecto
                 const fetchAllTestCases = response.data.map(project =>
-                    axios.get(`http://localhost:5000/api/tests/proyecto/${project.id}`)
+                    axios.get(`http://64.23.251.147:5000/api/tests/proyecto/${project.id}`)
                         .then(testResponse => ({
                             projectId: project.id,
                             tests: testResponse.data,
@@ -55,7 +55,7 @@ function Reports() {
 
                 // Cargar defectos para cada proyecto
                 const fetchAllDefects = response.data.map(project =>
-                    axios.get(`http://localhost:5000/api/defects/${project.id}`)
+                    axios.get(`http://64.23.251.147:5000/api/defects/${project.id}`)
                         .then(defectResponse => ({
                             projectId: project.id,
                             defects: defectResponse.data,
