@@ -126,7 +126,7 @@ CREATE TABLE `usuarios` (
   `creado_en` datetime DEFAULT current_timestamp(),
   `actualizado_en` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`) USING HASH
+  UNIQUE KEY `email` (`email`(255)) USING HASH
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
