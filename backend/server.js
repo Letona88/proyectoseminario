@@ -1,6 +1,5 @@
 const express = require('express');
 const dotenv = require('dotenv');
-const cors = require('cors');
 const bodyParser = require('body-parser');
 const db = require('./db'); // Importar la configuración de conexión a la base de datos
 const projectRoutes = require('./routes/projects');
@@ -18,7 +17,6 @@ dotenv.config();
 const app = express();
 
 // Middlewares
-app.use(cors()); // Permitir solicitudes desde el frontend
 app.use(bodyParser.json()); // Manejar datos JSON en las solicitudes
 app.use('/api/projects', projectRoutes);
 app.use('/api/tests', testRoutes);
