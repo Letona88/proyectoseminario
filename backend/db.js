@@ -2,7 +2,7 @@ const mysql = require('mysql2');
 
 // Configuración de conexión
 const db = mysql.createConnection({
-    host: process.env.DB_HOST || 'localhost', // Usa el valor del .env o un valor por defecto
+    host: process.env.DB_HOST || '127.0.0.1', // Usa el valor del .env o un valor por defecto
     user: process.env.DB_USER || 'root',
     password: process.env.DB_PASSWORD || '',
     database: process.env.DB_NAME || 'test_management',
