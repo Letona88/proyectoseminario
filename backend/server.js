@@ -9,6 +9,7 @@ const defectRoutes = require('./routes/defects');
 const userRoutes = require('./routes/users');
 const assignmentRoutes = require('./routes/assignments');
 const authRoutes = require('./routes/auth');
+const cors = require('cors');
 
 
 // Configurar dotenv para cargar las variables de entorno
@@ -25,6 +26,7 @@ app.use('/api/defects', defectRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/assignments', assignmentRoutes);
 app.use('/api/auth', authRoutes);
+app.use(cors({ origin: 'http://64.23.251.147' }));
 
 
 // Rutas de prueba
@@ -46,5 +48,5 @@ const PORT = process.env.PORT || 5000;
 
 // Iniciar el servidor
 app.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+    console.log(`Servidor corriendo en http://64.23.251.147:${PORT}`);
 });
